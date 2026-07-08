@@ -48,7 +48,7 @@ public class AuthorService {
     public AuthorResponseDTO update(Integer id, AuthorRequestDTO updatedAuthor
     ){
         Author author = authorRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("ERROR: No Author found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("No Author found with given id: " + id));
 
         author.setName(updatedAuthor.name());
         author.setBirthDate(updatedAuthor.birthDate());
