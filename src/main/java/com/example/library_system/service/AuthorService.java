@@ -25,7 +25,7 @@ public class AuthorService {
     public AuthorResponseDTO create(AuthorRequestDTO dto){
 //        dto -> entity -> function -> ret responseDto
         if (authorRepository.existsByNameIgnoreCase(dto.name())) {
-            throw new DuplicateResourceException("Author " + dto.name() + " already exists");
+            throw new DuplicateResourceException("Author " + dto.name() + " is a duplicate");
         }
         Author author = authorMapper.toAuthor(dto);
         Author saved = authorRepository.save(author);
@@ -34,7 +34,7 @@ public class AuthorService {
 
     public AuthorResponseDTO findById(Integer id){
         Author author = authorRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("No Author found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("No Author found with given id: " + id));
         return authorMapper.toResponseDTO(author);
     }
 
@@ -48,7 +48,7 @@ public class AuthorService {
     public AuthorResponseDTO update(Integer id, AuthorRequestDTO updatedAuthor
     ){
         Author author = authorRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("No Author found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("No Author found with given id: " + id));
 
         author.setName(updatedAuthor.name());
         author.setBirthDate(updatedAuthor.birthDate());
