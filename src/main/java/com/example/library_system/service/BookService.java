@@ -18,18 +18,18 @@ public class BookService {
 
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
-    private final AuthorRepository authorRepository;
+    private final AuthorService authorService;
 
-    public BookService(BookRepository bookRepository, BookMapper bookMapper, AuthorRepository authorRepository) {
+    public BookService(BookRepository bookRepository, BookMapper bookMapper, AuthorRepository authorRepository, AuthorService authorService) {
         this.bookRepository = bookRepository;
         this.bookMapper = bookMapper;
-        this.authorRepository = authorRepository;
+        this.authorService = authorService;
     }
 
     public BookResponseDTO create(BookRequestDTO dto){
         Book book = bookMapper.toBook(dto);
 
-        Author author = authorRepository.findById(dto.authorId())
+        Author author = authorService.findById(dto.authorId())
                 .orElseThrow(() -> new ResourceNotFoundException("No Author found with id: " + dto.authorId()));
 
         book.setAuthor(author);
@@ -65,7 +65,7 @@ public class BookService {
         book.setGenre(updatedBook.genre());
         book.setPublishDate(updatedBook.publishDate());
 
-        Author author = authorRepository.findById(updatedBook.authorId())
+        Author author = authorService.findById(updatedBook.authorId())
                 .orElseThrow(() -> new ResourceNotFoundException("No Author found with id: " + updatedBook.authorId()));
 
         book.setAuthor(author);
