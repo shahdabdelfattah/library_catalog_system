@@ -1,9 +1,11 @@
 package com.example.library_system.Author;
 
 import com.example.library_system.Book.Book;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,14 +20,17 @@ public class Author {
     @Column(nullable = false)
     private String name;
 
-    private Integer age;
+    private LocalDate birthDate;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
-    @JsonManagedReference
+//    @JsonManagedReference
+    @JsonIgnoreProperties("author")
     private List<Book> books = new ArrayList<>();
+
 
     public Author() {
     }
+
 
     public Integer getId() {
         return id;
@@ -43,12 +48,12 @@ public class Author {
         this.name = name;
     }
 
-    public Integer getAge() {
-        return age;
+    public LocalDate getBirthDate() {
+        return birthDate;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 
     public List<Book> getBooks() {

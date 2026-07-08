@@ -1,5 +1,6 @@
 package com.example.library_system.Author;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,38 +16,39 @@ public class AuthorController {
     }
 
     @PostMapping("/authors")
-    public Author Create(
-            @RequestBody Author author
+    @ResponseStatus(HttpStatus.CREATED)
+    public AuthorResponseDTO addAuthor(
+            @Valid @RequestBody AuthorRequestDTO author
     ){
-        return authorService.Create(author);
+        return authorService.create(author);
     }
 
     @GetMapping("/authors/{id}")
-    public Author findAuthorByID(
+    public AuthorResponseDTO findAuthorByID(
             @PathVariable Integer id
     ){
-        return authorService.findByID(id);
+        return authorService.findById(id);
     }
 
     @GetMapping("/authors")
-    public List<Author> getAuthors(){
+    public List<AuthorResponseDTO> getAuthors(){
         return authorService.getAuthors();
     }
 
     @PutMapping("/authors/{id}")
-    public Author updateAuthor(
+    public AuthorResponseDTO updateAuthor(
             @PathVariable Integer id,
-            @RequestBody Author updatedAuthor
+            @Valid @RequestBody AuthorRequestDTO updatedAuthor
     ){
-        return authorService.Update(id,updatedAuthor);
+        return authorService.update(id,updatedAuthor);
     }
 
     @DeleteMapping("/authors/{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteAuthor(
             @PathVariable Integer id
     ){
-        authorService.Delete(id);
+        authorService.delete(id);
     }
 
 }

@@ -2,6 +2,7 @@ package com.example.library_system.Book;
 
 import com.example.library_system.Author.Author;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -23,7 +24,8 @@ public class Book {
 
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
-    @JsonBackReference
+//    @JsonBackReference
+    @JsonIgnoreProperties("books")
     private Author author;
 
     public Book() {

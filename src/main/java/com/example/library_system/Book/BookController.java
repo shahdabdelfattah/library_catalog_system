@@ -1,5 +1,7 @@
 package com.example.library_system.Book;
 
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,43 +16,45 @@ public class BookController {
     }
 
     @PostMapping("/books")
-    public Book createBook(
-            @RequestBody Book book
+    @ResponseStatus(HttpStatus.CREATED)
+    public BookResponseDTO addBook(
+            @Valid @RequestBody BookRequestDTO book
     ){
-        return bookService.Create(book);
+        return bookService.create(book);
     }
 
     @GetMapping("/books")
-    public List<Book> getAllBooks(){
+    public List<BookResponseDTO> getAllBooks(){
         return bookService.getBooks();
     }
 
     @GetMapping("/books/{book_id}")
-    public Book getBookById(
+    public BookResponseDTO getBookById(
             @PathVariable Integer book_id
     ){
         return bookService.getByID(book_id);
     }
 
-    @GetMapping("/books/author/{author_id}")
-    public List<Book> getBookByAuthorId(
+    @GetMapping("/authors/{author_id}/books")
+    public List<BookResponseDTO> getBookByAuthorId(
             @PathVariable Integer author_id
     ){
         return bookService.getBooksByAuthor(author_id);
     }
 
     @PutMapping("/books/{book_id}")
-    public Book updateBook(
+    public BookResponseDTO updateBook(
             @PathVariable Integer book_id,
-            @RequestBody Book updatedBook
+            @Valid @RequestBody BookRequestDTO updatedBook
     ){
-        return bookService.Update(book_id, updatedBook);
+        return bookService.update(book_id, updatedBook);
     }
 
     @DeleteMapping("/books/{book_id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteBook(
             @PathVariable Integer book_id
     ){
-        bookService.Delete(book_id);
+        bookService.delete(book_id);
     }
 }

@@ -1,42 +1,59 @@
 package com.example.library_system.Author;
 
-import org.springframework.http.HttpStatus;
+import com.example.library_system.exception.DuplicateResourceException;
+import com.example.library_system.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AuthorService {
 
     private final AuthorRepository authorRepository;
+    private final AuthorMapper authorMapper;
 
-    public AuthorService(AuthorRepository authorRepository) {
+    public AuthorService(AuthorRepository authorRepository, AuthorMapper authorMapper) {
         this.authorRepository = authorRepository;
+        this.authorMapper = authorMapper;
     }
 
-    public Author Create(Author author){
-        return authorRepository.save(author);
+    public AuthorResponseDTO create(AuthorRequestDTO dto){
+//        dto -> entity -> function -> ret responseDto
+        if (authorRepository.existsByNameIgnoreCase(dto.name())) {
+            throw new DuplicateResourceException("Author " + dto.name() + " already exists");
+        }
+        Author author = authorMapper.toAuthor(dto);
+        Author saved = authorRepository.save(author);
+        return authorMapper.toResponseDTO(saved);
     }
 
-    public Author findByID(Integer id){
-        return authorRepository.findById(id)
-                .orElse(new Author());
+    public AuthorResponseDTO findById(Integer id){
+        Author author = authorRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("No Author found with id: " + id));
+        return authorMapper.toResponseDTO(author);
     }
 
-    public List<Author> getAuthors(){
-        return authorRepository.findAll();
+    public List<AuthorResponseDTO> getAuthors(){
+        return authorRepository.findAll()
+                .stream()
+                .map(authorMapper::toResponseDTO)
+                .collect(Collectors.toList());
     }
 
-    public Author Update(Integer id, Author updatedAuthor
+    public AuthorResponseDTO update(Integer id, AuthorRequestDTO updatedAuthor
     ){
-        var author = findByID(id);
-        author.setName(updatedAuthor.getName());
-        author.setAge(updatedAuthor.getAge());
-        return authorRepository.save(author);
+        Author author = authorRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("No Author found with id: " + id));
+
+        author.setName(updatedAuthor.name());
+        author.setBirthDate(updatedAuthor.birthDate());
+
+        authorRepository.save(author);
+
+        return authorMapper.toResponseDTO(author);
     }
 
-    public void Delete(Integer id){
+    public void delete(Integer id){
         authorRepository.deleteById(id);
     }
 }
