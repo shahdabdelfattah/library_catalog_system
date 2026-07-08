@@ -3,6 +3,7 @@ package com.example.library_system.service;
 import com.example.library_system.dto.AuthorRequestDTO;
 import com.example.library_system.dto.AuthorResponseDTO;
 import com.example.library_system.entity.Author;
+import com.example.library_system.entity.Book;
 import com.example.library_system.mapper.AuthorMapper;
 import com.example.library_system.repository.AuthorRepository;
 import com.example.library_system.exception.DuplicateResourceException;
@@ -23,7 +24,6 @@ public class AuthorService {
     }
 
     public AuthorResponseDTO create(AuthorRequestDTO dto){
-//        dto -> entity -> function -> ret responseDto
         if (authorRepository.existsByNameIgnoreCase(dto.name())) {
             throw new DuplicateResourceException("ERROR: Author " + dto.name() + " already exists");
         }
@@ -59,6 +59,9 @@ public class AuthorService {
     }
 
     public void delete(Integer id){
+        Author author = authorRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("No Author found with id: " + id));
+
         authorRepository.deleteById(id);
     }
 }

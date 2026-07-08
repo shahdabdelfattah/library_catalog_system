@@ -34,9 +34,6 @@ build/
 ### VS Code ###
 .vscode/
 
-### files
-.md
-
 # OS files
 .DS_Store
 Thumbs.db
@@ -48,4 +45,5 @@ logs/
 # Application-specific (adjust as needed)
 application-local.properties
 application-local.yml
+application.yml
 *.env

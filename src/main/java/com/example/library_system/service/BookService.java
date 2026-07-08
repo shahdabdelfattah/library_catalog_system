@@ -20,20 +20,14 @@ public class BookService {
     private final BookMapper bookMapper;
     private final AuthorRepository authorRepository;
 
-    public BookService(BookRepository bookRepository, BookMapper bookMapper, AuthorRepository authorRepository, AuthorService authorService, AuthorRepository authorRepository1) {
+    public BookService(BookRepository bookRepository, BookMapper bookMapper, AuthorRepository authorRepository) {
         this.bookRepository = bookRepository;
         this.bookMapper = bookMapper;
-        this.authorRepository = authorRepository1;
+        this.authorRepository = authorRepository;
     }
 
     public BookResponseDTO create(BookRequestDTO dto){
         Book book = bookMapper.toBook(dto);
-
-        Author author = authorRepository.findById(dto.authorId())
-                .orElseThrow(() -> new ResourceNotFoundException("No Author found with id: " + dto.authorId()));
-
-        book.setAuthor(author);
-
         bookRepository.save(book);
         return bookMapper.toResponseDTO(book);
     }
@@ -75,7 +69,6 @@ public class BookService {
         return bookMapper.toResponseDTO(book);
     }
     public void delete(Integer id){
-
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No Book found with id: " + id));
 
