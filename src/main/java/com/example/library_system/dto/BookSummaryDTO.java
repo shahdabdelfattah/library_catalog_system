@@ -1,4 +1,4 @@
-package com.example.library_system.Book;
+package com.example.library_system.dto;
 
 public record BookSummaryDTO(
         Integer id,

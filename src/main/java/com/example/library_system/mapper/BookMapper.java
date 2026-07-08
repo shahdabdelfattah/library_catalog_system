@@ -1,7 +1,11 @@
-package com.example.library_system.Book;
+package com.example.library_system.mapper;
 
-import com.example.library_system.Author.Author;
-import com.example.library_system.Author.AuthorRepository;
+import com.example.library_system.entity.Author;
+import com.example.library_system.repository.AuthorRepository;
+import com.example.library_system.entity.Book;
+import com.example.library_system.dto.BookRequestDTO;
+import com.example.library_system.dto.BookResponseDTO;
+import com.example.library_system.dto.BookSummaryDTO;
 import com.example.library_system.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 

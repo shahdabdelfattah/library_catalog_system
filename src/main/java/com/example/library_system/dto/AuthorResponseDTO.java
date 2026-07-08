@@ -1,6 +1,4 @@
-package com.example.library_system.Author;
-
-import com.example.library_system.Book.BookSummaryDTO;
+package com.example.library_system.dto;
 
 import java.time.LocalDate;
 import java.util.List;

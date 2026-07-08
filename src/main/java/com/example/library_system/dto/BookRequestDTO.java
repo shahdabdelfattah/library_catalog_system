@@ -1,4 +1,4 @@
-package com.example.library_system.Book;
+package com.example.library_system.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

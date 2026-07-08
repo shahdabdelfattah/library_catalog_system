@@ -1,7 +1,9 @@
-package com.example.library_system.Author;
+package com.example.library_system.mapper;
 
-import com.example.library_system.Book.BookMapper;
-import com.example.library_system.Book.BookSummaryDTO;
+import com.example.library_system.dto.AuthorRequestDTO;
+import com.example.library_system.dto.AuthorResponseDTO;
+import com.example.library_system.entity.Author;
+import com.example.library_system.dto.BookSummaryDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

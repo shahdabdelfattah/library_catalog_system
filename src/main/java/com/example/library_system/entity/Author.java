@@ -1,8 +1,6 @@
-package com.example.library_system.Author;
+package com.example.library_system.entity;
 
-import com.example.library_system.Book.Book;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;

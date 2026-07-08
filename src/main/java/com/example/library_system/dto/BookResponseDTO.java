@@ -1,4 +1,4 @@
-package com.example.library_system.Book;
+package com.example.library_system.dto;
 
 import java.time.LocalDate;
 

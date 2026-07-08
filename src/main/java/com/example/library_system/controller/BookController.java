@@ -1,5 +1,8 @@
-package com.example.library_system.Book;
+package com.example.library_system.controller;
 
+import com.example.library_system.dto.BookRequestDTO;
+import com.example.library_system.dto.BookResponseDTO;
+import com.example.library_system.service.BookService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

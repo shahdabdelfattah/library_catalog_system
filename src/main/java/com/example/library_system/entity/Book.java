@@ -1,12 +1,9 @@
-package com.example.library_system.Book;
+package com.example.library_system.entity;
 
-import com.example.library_system.Author.Author;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Table(name = "books")

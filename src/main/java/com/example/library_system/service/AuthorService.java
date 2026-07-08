@@ -1,5 +1,10 @@
-package com.example.library_system.Author;
+package com.example.library_system.service;
 
+import com.example.library_system.dto.AuthorRequestDTO;
+import com.example.library_system.dto.AuthorResponseDTO;
+import com.example.library_system.entity.Author;
+import com.example.library_system.mapper.AuthorMapper;
+import com.example.library_system.repository.AuthorRepository;
 import com.example.library_system.exception.DuplicateResourceException;
 import com.example.library_system.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
