@@ -27,9 +27,14 @@ public class BookService {
     }
 
     public BookResponseDTO create(BookRequestDTO dto){
+        Author author = authorRepository.findById(dto.authorId())
+                .orElseThrow(() -> new ResourceNotFoundException("No Author found with id: " + dto.authorId()));
+
         Book book = bookMapper.toBook(dto);
-        bookRepository.save(book);
-        return bookMapper.toResponseDTO(book);
+        book.setAuthor(author);
+
+        Book saved = bookRepository.save(book);
+        return bookMapper.toResponseDTO(saved);
     }
 
     public List<BookResponseDTO> getBooks(){

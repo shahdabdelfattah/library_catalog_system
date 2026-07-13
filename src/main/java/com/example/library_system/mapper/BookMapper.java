@@ -24,11 +24,6 @@ public class BookMapper {
         book.setGenre(dto.genre());
         book.setPublishDate(dto.publishDate());
 
-        Author author = authorRepository.findById(dto.authorId())
-                .orElseThrow(() -> new ResourceNotFoundException("No Author found with id: " + dto.authorId()));
-
-        book.setAuthor(author);
-
         return book;
     }
 
